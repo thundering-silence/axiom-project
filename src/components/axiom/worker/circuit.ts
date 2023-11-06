@@ -10,19 +10,15 @@
 //
 //
 
-import {
-  Halo2Lib,
-  AxiomData,
-  CircuitValue
-} from "@axiom-crypto/experimental/halo2-js";
-import { CircuitValue256 } from "@axiom-crypto/experimental/v2/circuit/CircuitValue256";
+import { Halo2Lib, AxiomData, CircuitValue } from "@axiom-crypto/experimental/halo2-js";
+// import { CircuitValue256 } from "@axiom-crypto/experimental/v2/circuit/CircuitValue256";
 const defaultInputs = {
   aggregator: "0x9b0FC4bb9981e5333689d69BdBF66351B9861E62",
   blockNum: 9938576,
   txIndex: 29,
   thresholdPrice: 150000000000,
   shouldBeLess: 0,
-  oToken: "0x9b0FC4bb9981e5333689d69BdBF66351B9861E61"
+  oToken: "0x9b0FC4bb9981e5333689d69BdBF66351B9861E61",
 };
 type CircuitInputType = typeof defaultInputs;
 export interface CircuitInputs extends CircuitInputType {}
@@ -37,29 +33,12 @@ export interface CircuitValueInputs {
 const circuitFn = async (
   halo2Lib: Halo2Lib,
   axiomData: AxiomData,
-  {
-    aggregator,
-    blockNum,
-    txIndex,
-    thresholdPrice,
-    shouldBeLess,
-    oToken
-  }: CircuitValueInputs
+  { aggregator, blockNum, txIndex, thresholdPrice, shouldBeLess, oToken }: CircuitValueInputs,
 ) => {
-  const {
-    witness,
-    add,
-    or,
-    dec,
-    isEqual,
-    checkEqual,
-    isLessThan,
-    log
-  } = halo2Lib;
+  const { witness, add, or, dec, isEqual, checkEqual, isLessThan, log } = halo2Lib;
   const { getReceipt, getHeader, addToCallback } = axiomData;
   // AnswerUpdated(indexed int256,indexed uint256,uint256)
-  const eventSchema =
-    "0x0559884fd3a460db3073b7fc896cc77986f16e378210ded43186175bf646fc5f";
+  const eventSchema = "0x0559884fd3a460db3073b7fc896cc77986f16e378210ded43186175bf646fc5f";
   // get block timestamp
   const blockTimestamp = getHeader(blockNum)
     .timestamp()
@@ -96,7 +75,7 @@ const config = {
   numLookupAdvice: 1,
   numInstance: 1,
   numLookupBits: 12,
-  numVirtualInstance: 2
+  numVirtualInstance: 2,
 };
 const vk = [
   2,
@@ -940,11 +919,11 @@ const vk = [
   137,
   165,
   11,
-  19
+  19,
 ];
 export const circuit = Object.freeze({
   circuit: circuitFn,
   config,
   defaultInputs,
-  vk
+  vk,
 });

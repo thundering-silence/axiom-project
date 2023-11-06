@@ -105,6 +105,7 @@ const fetchCircuitInputs = async ({validFrom, expiry, address, thresholdPrice, i
     }
     toast.dismiss(t);
     setInput(JSON.stringify(res));
+    console.log(res);
     return res;
 }
 
@@ -140,6 +141,7 @@ const fetchCircuitInputs = async ({validFrom, expiry, address, thresholdPrice, i
       address,
       builtQuery.dataQuery,
     ];
+    console.log(builtQuery);
     const preparedContract = {
       address: axiom.getAxiomQueryAddress() as `0x${string}`,
       abi: axiom.getAxiomQueryAbi(),

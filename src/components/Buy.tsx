@@ -1,4 +1,4 @@
-import { useContractRead, useContractReads, useContractWrite } from "wagmi";
+import { useAccount, useContractRead, useContractReads, useContractWrite } from "wagmi";
 import { Marketplace } from "../abis/Marketplace";
 import { MARKETPLACE_ADDRESS, WETH } from "../constants";
 import OptionCard from "./OptionCard";
@@ -7,15 +7,12 @@ import ApproveExecute from "./ApproveExecute";
 import { useEffect } from "react";
 
 function Buy() {
+  const {address} = useAccount();
   const {data: optionAddresses, isLoading: isLoadingAddresses} = useContractRead({
     abi: Marketplace,
     address: MARKETPLACE_ADDRESS,
     functionName: "getOptionsForSale",
   }) as {data: Array<`0x${string}`>, isLoading: boolean}
-
-  useEffect(() => {
-    console.log(optionAddresses)
-  }, [optionAddresses])
 
   const {data: detailsResult, isLoading: isLoadingDetails} = useContractReads({
       contracts: (optionAddresses || []).map(address => ({
@@ -67,10 +64,6 @@ function Buy() {
       })> | undefined;
       isLoading: boolean  
   }
-
-  useEffect(() => {
-    console.log(detailsResult)
-  }, [detailsResult])
 
   const {data: sellingData, isLoading: isLoadingSellingData} = useContractReads({
       contracts: (optionAddresses || []).map(address => ({
@@ -130,7 +123,10 @@ function Buy() {
     {(isLoadingAddresses || isLoadingDetails ) && <div>Loading...</div>}
     {detailsResult?.map(({result}, i) => result && (
         <OptionCard key={i} data={result}>
-              {!isLoadingSellingData && sellingData?.at(i)?.result && (
+              {!isLoadingSellingData 
+              && sellingData?.at(i)?.result 
+              && (sellingData?.at(i)?.result?.at(0) as string).toLowerCase() != address?.toLowerCase() 
+              && (
                   <form onSubmit={handleSubmit([optionAddresses?.[i], sellingData?.at(i)?.result?.at(0) as string])}>
                     <div>Price: {formatEther(sellingData?.at(i)?.result?.at(2) as bigint)} WETH</div>
                     <ApproveExecute
