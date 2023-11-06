@@ -1,8 +1,8 @@
 import { defineChain } from "viem";
 
-export const WETH = "0x40caeBe224cEC7412E22E83Dfe0b804e1402BE19";
-export const USDC = "0x91Bcffe837B0E25c907e777D25638795DF5b990e";
-export const MARKETPLACE_ADDRESS = "0x95c50eF05A11a0EB9308a74d8b22B18fd27a8341";
+export const WETH = "0xdB7df1f6c68F122012f48141D575A44942e2C377";
+export const USDC = "0xC992496A87B873276964029d3Dc6f7F33F7E0722";
+export const MARKETPLACE_ADDRESS = "0x7eac4d493b0388E9b254b7561fc3460B25819dE1";
 
 export const localhost = defineChain({
   id: 31337,

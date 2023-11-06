@@ -142,6 +142,7 @@ const fetchCircuitInputs = async ({validFrom, expiry, address, thresholdPrice, i
       builtQuery.dataQuery,
     ];
     console.log(builtQuery);
+    return
     const preparedContract = {
       address: axiom.getAxiomQueryAddress() as `0x${string}`,
       abi: axiom.getAxiomQueryAbi(),
