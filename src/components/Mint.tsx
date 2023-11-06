@@ -41,7 +41,7 @@ function Mint() {
       <h2>Mint</h2>
       <div className="mb-3">
         <label className="form-label fw-bold" htmlFor="strike">
-          Strike (USD)
+          Strike (Barrier) in USD
         </label>
         <input type="number" className="form-control" id="strike" name="strike" />
       </div>

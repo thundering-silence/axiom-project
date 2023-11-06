@@ -11,14 +11,13 @@
 //
 
 import { Halo2Lib, AxiomData, CircuitValue } from "@axiom-crypto/experimental/halo2-js";
-// import { CircuitValue256 } from "@axiom-crypto/experimental/v2/circuit/CircuitValue256";
 const defaultInputs = {
   aggregator: "0x9b0FC4bb9981e5333689d69BdBF66351B9861E62",
-  blockNum: 9938576,
-  txIndex: 29,
+  blockNum: 9985325,
+  txIndex: 66,
   thresholdPrice: 150000000000,
   shouldBeLess: 0,
-  oToken: "0x9b0FC4bb9981e5333689d69BdBF66351B9861E61",
+  oToken: "0xaC40f75Ba03B862f0FD7e00c896f6e17Cd2dFC63",
 };
 type CircuitInputType = typeof defaultInputs;
 export interface CircuitInputs extends CircuitInputType {}
