@@ -111,7 +111,7 @@ function ApproveExecute({approveERC20, approveAmount, spender, executeLabel}: Pr
 
     useEffect(() => {
       if (isSuccess) {
-        toast.success("Approved!", {
+        toast.success("Approve submitted!", {
           duration: 3_000,
         });
       }

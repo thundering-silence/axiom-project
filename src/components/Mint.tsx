@@ -3,9 +3,11 @@ import { Marketplace } from "../abis/Marketplace";
 import { MARKETPLACE_ADDRESS, WETH } from "../constants";
 import { parseEther, parseUnits } from "viem";
 import ApproveExecute from "./ApproveExecute";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 function Mint() {
-  const { write: mintOption } = useContractWrite({
+  const { write: mintOption, isSuccess } = useContractWrite({
     abi: Marketplace,
     address: MARKETPLACE_ADDRESS,
     functionName: "sellOption",
@@ -35,6 +37,12 @@ function Mint() {
       args: [strike, start, exp, t.put.checked, price],
     });
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Mint request submitted");
+    }
+  }, [isSuccess]);
 
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: 300, margin: "auto" }} className="text-left">

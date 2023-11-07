@@ -56,6 +56,7 @@ export class AxiomCircuit extends CircuitScaffold {
     let circuitInputs: CircuitInputs;
     try {
       circuitInputs = JSON.parse(inputs);
+      console.log("circuitInputs at line 58", circuitInputs);
     } catch (error) {
       console.error(error);
       return null;

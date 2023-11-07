@@ -5,6 +5,7 @@ import OptionCard from "./OptionCard";
 import { formatEther } from "viem";
 import ApproveExecute from "./ApproveExecute";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 function Buy() {
   const {address} = useAccount();
@@ -12,6 +13,8 @@ function Buy() {
     abi: Marketplace,
     address: MARKETPLACE_ADDRESS,
     functionName: "getOptionsForSale",
+    watch: true,
+    cacheTime: 3_000,
   }) as {data: Array<`0x${string}`>, isLoading: boolean}
 
   const {data: detailsResult, isLoading: isLoadingDetails} = useContractReads({
@@ -52,6 +55,8 @@ function Buy() {
             },],
             functionName: "getOtokenDetails",
       })),
+      watch: true,
+      cacheTime: 3_000,
   }) as {
       data: Array<({
           error: Error;
@@ -104,9 +109,12 @@ function Buy() {
             }],
           functionName: "optionSaleInfo",
           args: [address],
-  }))}) 
+  })),
+  watch: true,
+  cacheTime: 3_000,
+}) 
 
-  const { write: buyOption } = useContractWrite({
+  const { write: buyOption, isSuccess } = useContractWrite({
     address: MARKETPLACE_ADDRESS, // MARKETPLACE_ADDRESS
     abi: Marketplace,
     functionName: "buyOption",
@@ -116,6 +124,12 @@ function Buy() {
     e.preventDefault();
     buyOption({args})
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Buy request submitted")
+    }
+  }, [isSuccess])
 
   return  (<div>
     <h2 className="mb-2">Buy Options</h2>
